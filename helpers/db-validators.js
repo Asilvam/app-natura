@@ -8,8 +8,6 @@ const existeCorreo = async (correo = '') => {
 }
 
 const existeUsuarioPorId = async (id) => {
-
-    // Verificar si el correo existe
     const existeUsuario = await usuario.findById(id);
     if (!existeUsuario) {
         throw new Error(`El id no existe ${id}`);
