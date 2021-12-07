@@ -1,28 +1,28 @@
 const {response, request} = require('express');
 
-const Usuario = require('../models/producto');
+const Producto = require('../models/producto');
 
-const productosGet = (req = request, res = response) => {
-    const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
+const productosGet = async (req = request, res = response) => {
+    // const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
+    const productos = await Producto.find();
     res.json({
-        msg: 'get API - controlador',
-        q,
-        nombre,
-        apikey,
-        page,
-        limit
+        productos
     });
 }
 
 const productosPost = async (req, res = response) => {
-    const body = req.body;
-    const usuario = new Usuario(body);
 
-    await usuario.save();
-    res.json({
-        msg: 'post API - productosPost',
-        body
-    });
+    const body = req.body;
+    const producto = new Producto(body);
+    const result = await producto.save();
+    if (result) {
+        console.log('result-->', result);
+        res.status(201);
+        res.json({
+            msg: 'Post API - Producto'
+        });
+    }
+
 }
 
 const productosPut = (req, res = response) => {
