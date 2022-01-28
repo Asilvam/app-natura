@@ -9,6 +9,7 @@ class Server {
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
         this.productosPath = '/api/productos';
+        this.uploadPath = '/api/uploads';
 
         //connect to DB
         this.connectDB();
@@ -40,6 +41,7 @@ class Server {
     routes() {
         this.app.use(this.usuariosPath, require('../routes/usuarios'));
         this.app.use(this.productosPath, require('../routes/productos'));
+        this.app.use(this.uploadPath, require('../routes/uploads'));
     }
 
     listen() {

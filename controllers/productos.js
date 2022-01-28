@@ -22,7 +22,6 @@ const productosPost = async (req, res = response) => {
             msg: 'Post API - Producto'
         });
     }
-
 }
 
 const productosPut = (req, res = response) => {
