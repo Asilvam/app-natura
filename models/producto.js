@@ -1,16 +1,16 @@
 const {Schema, model} = require("mongoose");
 
 const productoSchema = new Schema({
-        titulo: {type: String},
-        precio: {type: Number},
-        cantidad: {type: Number},
-        codigo: {type: String},
-        ciclo: {type: String},
-        vencimiento: {type: String},
-        descripcion: {type: String},
+        title: {type: String},
+        price: {type: Number},
+        stock: {type: Number},
+        code: {type: String},
+        cicle: {type: String},
+        expiration: {type: String},
+        description: {type: String},
         path: {type: String},
-        estado: {type: Boolean, default: true},
-        categoria: {type: String}
+        isActive: {type: Boolean, default: true},
+        category: {type: String}
     },
     {
         timestamps: true

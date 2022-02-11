@@ -3,10 +3,14 @@ const {response, request} = require('express');
 const Producto = require('../models/producto');
 
 const productosGet = async (req = request, res = response) => {
-    // const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
-    const productos = await Producto.find();
+    const {pageNumber, nPerPage} = req.query;
+    const total = await Producto.countDocuments({isActive: true});
+    const products = await Producto.find({isActive: true})
+        .skip(pageNumber > 0 ? ((pageNumber - 1) * nPerPage) : 0)
+        .limit(nPerPage)
     res.json({
-        productos
+        total,
+        products
     });
 }
 

@@ -7,8 +7,8 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        this.usuariosPath = '/api/usuarios';
-        this.productosPath = '/api/productos';
+        this.usuariosPath = '/api/users';
+        this.productosPath = '/api/products';
         this.uploadPath = '/api/uploads';
 
         //connect to DB
@@ -51,6 +51,5 @@ class Server {
     }
 
 }
-
 
 module.exports = Server;

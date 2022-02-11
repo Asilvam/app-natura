@@ -1,11 +1,11 @@
 const {Schema, model} = require("mongoose");
 
 const UsuarioSchema = new Schema({
-        nombre: {
+        name: {
             type: String,
             required: [true, 'Nombre es obligatorio']
         },
-        correo: {
+        email: {
             type: String,
             required: true,
             unique: [true, 'Correo es obligatorio']
@@ -17,7 +17,7 @@ const UsuarioSchema = new Schema({
         img: {
             type: String
         },
-        estado: {
+        isActive: {
             type: Boolean,
             default: true
         },
