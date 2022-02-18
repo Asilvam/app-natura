@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const {check} = require("express-validator");
-const {validarCampos} = require("../middlewares/validar-campos");
+const {validateFields} = require("../middlewares/validate-fields");
 const {existeCorreo} = require("../helpers/db-validators");
 
 const {
@@ -11,7 +11,6 @@ const {
     usuariosPatch
 } = require('../controllers/usuarios');
 
-
 const router = Router();
 
 router.get('/', usuariosGet);
@@ -21,7 +20,7 @@ router.post('/', [
     check('correo', 'El correo no es valido').isEmail(),
     check('correo').custom(existeCorreo),
     check('password', 'El password debe de ser más de 6 caracteres').isLength({min: 6}),
-    validarCampos
+    validateFields
 ], usuariosPost);
 router.delete('/', usuariosDelete);
 router.patch('/', usuariosPatch);

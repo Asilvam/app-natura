@@ -1,6 +1,7 @@
 const {response, request} = require('express');
 
 const Producto = require('../models/producto');
+const {v2: cloudinary} = require("cloudinary");
 
 const productosGet = async (req = request, res = response) => {
     const {pageNumber, nPerPage} = req.query;
@@ -15,15 +16,18 @@ const productosGet = async (req = request, res = response) => {
 }
 
 const productosPost = async (req, res = response) => {
-
     const body = req.body;
+    const {tempFilePath} = req.files.file
+    const {secure_url} = await cloudinary.uploader.upload(tempFilePath);
     const producto = new Producto(body);
+    producto.path = secure_url;
     const result = await producto.save();
     if (result) {
-        console.log('result-->', result);
+        // console.log('result-->', result._doc);
         res.status(201);
         res.json({
-            msg: 'Post API - Producto'
+            msg: 'Post API - Producto',
+            result
         });
     }
 }

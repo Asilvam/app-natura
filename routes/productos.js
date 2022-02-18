@@ -7,12 +7,13 @@ const {
     productosDelete,
     productosPatch
 } = require('../controllers/productos');
+const {validateFileUp} = require("../middlewares/validate-file");
 
 const router = Router();
 
 router.get('/', productosGet);
 router.put('/:id', productosPut);
-router.post('/', productosPost);
+router.post('/', validateFileUp, productosPost);
 router.delete('/', productosDelete);
 router.patch('/', productosPatch);
 
