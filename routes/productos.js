@@ -4,17 +4,21 @@ const {
     productosGet,
     productosPut,
     productosPost,
-    productosDelete,
-    productosPatch
+    productosDelete
 } = require('../controllers/productos');
 const {validateFileUp} = require("../middlewares/validate-file");
-
+const {validateExtensionFile} = require("../middlewares/validate-extensionFile");
 const router = Router();
 
 router.get('/', productosGet);
+
 router.put('/:id', productosPut);
-router.post('/', validateFileUp, productosPost);
+
+router.post('/', [
+    validateFileUp,
+    validateExtensionFile,
+], productosPost);
+
 router.delete('/', productosDelete);
-router.patch('/', productosPatch);
 
 module.exports = router;

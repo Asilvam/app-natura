@@ -36,11 +36,6 @@ const usuariosPut = (req, res = response) => {
     });
 }
 
-const usuariosPatch = (req, res = response) => {
-    res.json({
-        msg: 'patch API - usuariosPatch'
-    });
-}
 
 const usuariosDelete = (req, res = response) => {
     res.json({
@@ -52,6 +47,5 @@ module.exports = {
     usuariosGet,
     usuariosPost,
     usuariosPut,
-    usuariosPatch,
     usuariosDelete,
 }

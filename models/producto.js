@@ -5,7 +5,7 @@ const productoSchema = new Schema({
         price: {type: Number},
         inStock: {type: Number},
         code: {type: String},
-        cicle: {type: []},
+        cycle: {type: []},
         expiration: {type: []},
         description: {type: String},
         path: {type: String},

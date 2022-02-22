@@ -15,15 +15,14 @@ const productosGet = async (req = request, res = response) => {
     });
 }
 
-const productosPost = async (req, res = response) => {
+const productosPost = async (req = request, res = response) => {
     const body = req.body;
-    const {tempFilePath} = req.files.file
+    const {tempFilePath} = req.files.file;
     const {secure_url} = await cloudinary.uploader.upload(tempFilePath);
     const producto = new Producto(body);
     producto.path = secure_url;
     const result = await producto.save();
     if (result) {
-        // console.log('result-->', result._doc);
         res.status(201);
         res.json({
             msg: 'Post API - Producto',
@@ -32,7 +31,7 @@ const productosPost = async (req, res = response) => {
     }
 }
 
-const productosPut = (req, res = response) => {
+const productosPut = (req = request, res = response) => {
     const {id} = req.params;
     res.json({
         msg: 'put API - productosPut',
@@ -40,13 +39,8 @@ const productosPut = (req, res = response) => {
     });
 }
 
-const productosPatch = (req, res = response) => {
-    res.json({
-        msg: 'patch API - productosPatch'
-    });
-}
 
-const productosDelete = (req, res = response) => {
+const productosDelete = (req = request, res = response) => {
     res.json({
         msg: 'delete API - productosDelete'
     });
@@ -56,6 +50,5 @@ module.exports = {
     productosGet,
     productosPost,
     productosPut,
-    productosPatch,
     productosDelete,
 }

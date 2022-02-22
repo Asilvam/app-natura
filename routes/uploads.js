@@ -16,9 +16,9 @@ router.put('/:collection/:id', [
 ], updateImageCloudinary)
 
 router.get('/:collection/:id', [
-    check('id', 'El id debe de ser de mongo').isMongoId(),
+    check('id', 'id must be Mongodb').isMongoId(),
     check('collection').custom(c => collectionsAllows(c, ['usuarios', 'productos'])),
-    validateFields
+    validateFields,
 ], showImage)
 
 module.exports = router;
