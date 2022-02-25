@@ -9,10 +9,9 @@ const productosGet = async (req = request, res = response) => {
     const products = await Producto.find({isActive: true})
         .skip(pageNumber > 0 ? ((pageNumber - 1) * nPerPage) : 0)
         .limit(nPerPage)
-    res.json({
-        total,
+    res.json(
         products
-    });
+    );
 }
 
 const productosPost = async (req = request, res = response) => {
@@ -31,19 +30,18 @@ const productosPost = async (req = request, res = response) => {
     }
 }
 
-const productosPut = (req = request, res = response) => {
+const productosPut = async (req = request, res = response) => {
     const {id} = req.params;
-    res.json({
-        msg: 'put API - productosPut',
-        id
-    });
+    const productoActualizado = await Producto.findByIdAndUpdate(id, req.body, {new: true});
+    res.json(productoActualizado);
 }
 
 
-const productosDelete = (req = request, res = response) => {
-    res.json({
-        msg: 'delete API - productosDelete'
-    });
+const productosDelete = async (req = request, res = response) => {
+    const {id} = req.params;
+    const productoBorrado = await Producto.findByIdAndUpdate(id, {isActive: false}, {new: true});
+
+    res.json(productoBorrado);
 }
 
 module.exports = {

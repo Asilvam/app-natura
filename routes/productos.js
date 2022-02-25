@@ -12,13 +12,13 @@ const router = Router();
 
 router.get('/', productosGet);
 
-router.put('/:id', productosPut);
-
 router.post('/', [
     validateFileUp,
     validateExtensionFile,
 ], productosPost);
 
-router.delete('/', productosDelete);
+router.put('/:id', productosPut);
+
+router.delete('/:id', productosDelete);
 
 module.exports = router;
