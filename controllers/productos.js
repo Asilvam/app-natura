@@ -1,15 +1,12 @@
 const {response, request} = require('express');
-
 const Producto = require('../models/producto');
 const {v2: cloudinary} = require("cloudinary");
 
 const productosGet = async (req = request, res = response) => {
     const limit = req.query.limit || 10;
     const page = req.query.page || 1;
-    const products = await Producto.paginate({isActive: true},{limit, page})
-    res.json(
-        products
-    );
+    const products = await Producto.paginate({isActive: true}, {limit, page})
+    res.json(products);
 }
 
 const productosPost = async (req = request, res = response) => {
@@ -34,11 +31,9 @@ const productosPut = async (req = request, res = response) => {
     res.json(productoActualizado);
 }
 
-
 const productosDelete = async (req = request, res = response) => {
     const {id} = req.params;
     const productoBorrado = await Producto.findByIdAndUpdate(id, {isActive: false}, {new: true});
-
     res.json(productoBorrado);
 }
 

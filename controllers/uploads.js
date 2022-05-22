@@ -3,6 +3,7 @@ const {upFile} = require("../helpers/up-file");
 const Producto = require('../models/producto');
 const Usuario = require('../models/usuario');
 const path = require("path");
+const fs = require("fs");
 const cloudinary = require('cloudinary').v2
 cloudinary.config(process.env.CLOUDINARY_URL);
 
@@ -77,7 +78,6 @@ const showImage = async (req, res = response) => {
     }
     // Limpiar imágenes previas
     if (model.path) {
-        // Hay que borrar la imagen del servidor
         const pathImage = path.join(__dirname, '../uploads', collection, model.path);
         if (fs.existsSync(pathImage)) {
             return res.sendFile(pathImage)

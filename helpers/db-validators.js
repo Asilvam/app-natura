@@ -1,15 +1,13 @@
 const usuario = require('../models/usuario');
 
-const existeCorreo = async (correo = '') => {
-    const existe = await usuario.findOne({correo});
+const existeCorreo = async (email = '') => {
+    const existe = await usuario.findOne({email});
     if (existe) {
-        throw new Error(`email ${correo} don't exist!`)
+        throw new Error(`email ${email} exist!`)
     }
 }
 
 const existeCategoriaPorId = async (id) => {
-
-    // Verificar si el correo existe
     const existeCategoria = await Categoria.findById(id);
     if (!existeCategoria) {
         throw new Error(`id don't exist!  ${id}`);

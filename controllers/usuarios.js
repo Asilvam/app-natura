@@ -3,25 +3,20 @@ const bcrypt = require('bcryptjs');
 
 const Usuario = require('../models/usuario');
 
-const usuariosGet = (req = request, res = response) => {
-    const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
-    res.json({
-        msg: 'get API - controlador',
-        q,
-        nombre,
-        apikey,
-        page,
-        limit
-    });
+const usuariosGet = async (req = request, res = response) => {
+    const limit = req.query.limit || 10;
+    const page = req.query.page || 1;
+    const users = await Usuario.paginate({limit, page})
+    res.json(
+        users
+    );
 }
 
 const usuariosPost = async (req, res = response) => {
-    const {nombre, correo, password} = req.body;
-    const usuario = new Usuario({nombre, correo, password});
-
+    const {name, email, password} = req.body;
+    const usuario = new Usuario({name, email, password});
     const salt = bcrypt.genSaltSync();
     usuario.password = bcrypt.hashSync(password, salt);
-
     await usuario.save();
     res.json({
         usuario
@@ -36,10 +31,11 @@ const usuariosPut = (req, res = response) => {
     });
 }
 
-
 const usuariosDelete = (req, res = response) => {
+    const {id} = req.params;
     res.json({
-        msg: 'delete API - usuariosDelete'
+        msg: 'delete API - usuariosDelete',
+        id
     });
 }
 

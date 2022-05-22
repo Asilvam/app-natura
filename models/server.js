@@ -11,11 +11,10 @@ class Server {
         this.usuariosPath = '/api/users';
         this.productosPath = '/api/products';
         this.uploadPath = '/api/uploads';
-        //connect to DB
+        this.authPath = '/api/auth';
+
         this.connectDB();
-        // Middlewares
         this.middlewares();
-        // Rutas de mi aplicación
         this.routes();
     }
 
@@ -26,23 +25,20 @@ class Server {
     middlewares() {
         // CORS
         this.app.use(cors());
-
         // Lectura y parseo del body
         this.app.use(express.json());
-
         // Directorio Público
         this.app.use(express.static('public'));
-
         // Fileupload - Carga de archivos
         this.app.use(fileUpload({
             useTempFiles: true,
             tempFileDir: '/tmp/',
             createParentPath: true
         }));
-
     }
 
     routes() {
+        this.app.use(this.authPath, require('../routes/auth'));
         this.app.use(this.usuariosPath, require('../routes/usuarios'));
         this.app.use(this.productosPath, require('../routes/productos'));
         this.app.use(this.uploadPath, require('../routes/uploads'));
@@ -53,7 +49,6 @@ class Server {
             console.log('Server run in port ', this.port);
         });
     }
-
 }
 
 module.exports = Server;

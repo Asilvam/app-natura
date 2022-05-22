@@ -2,25 +2,25 @@ const {Router} = require('express');
 const {check} = require("express-validator");
 const {validateFields} = require("../middlewares/validate-fields");
 const {existeCorreo} = require("../helpers/db-validators");
-
 const {
     usuariosGet,
     usuariosPut,
     usuariosPost,
     usuariosDelete,
 } = require('../controllers/usuarios');
+const {validateJwt} = require("../middlewares/validate-jwt");
 
 const router = Router();
 
 router.get('/', usuariosGet);
 router.put('/:id', usuariosPut);
 router.post('/', [
-    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('correo', 'El correo no es valido').isEmail(),
-    check('correo').custom(existeCorreo),
-    check('password', 'El password debe de ser más de 6 caracteres').isLength({min: 6}),
+    check('name', 'name is require').not().isEmpty(),
+    check('email', 'email is not valid').isEmail(),
+    check('email').custom(existeCorreo),
+    check('password', 'pass must be 6 characters at least').isLength({min: 6}),
     validateFields
 ], usuariosPost);
-router.delete('/', usuariosDelete);
+router.delete('/:id', [validateJwt], usuariosDelete);
 
 module.exports = router;
