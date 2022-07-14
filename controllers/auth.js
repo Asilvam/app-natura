@@ -1,5 +1,5 @@
 const {response} = require("express");
-const User = require('../models/usuario');
+const User = require('../models/user');
 const bcryptjs = require("bcryptjs");
 const {generateJWT} = require("../helpers/generate-jwt");
 
@@ -28,8 +28,6 @@ const login = async (req, res = response) => {
         console.log(e)
         res.status(500).json({msg: 'Error Login'})
     }
-
-
 }
 
 module.exports = {

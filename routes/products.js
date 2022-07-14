@@ -1,24 +1,21 @@
 const {Router} = require('express');
 
-const {
-    productosGet,
-    productosPut,
-    productosPost,
-    productosDelete
-} = require('../controllers/productos');
+const {productsGet, productsPut, productsPost, productsDelete} = require('../controllers/products');
 const {validateFileUp} = require("../middlewares/validate-file");
 const {validateExtensionFile} = require("../middlewares/validate-extensionFile");
 const router = Router();
 
-router.get('/', productosGet);
+router.get('/', productsGet);
+
+router.get('/:id', productsGet);
 
 router.post('/', [
     validateFileUp,
     validateExtensionFile,
-], productosPost);
+], productsPost);
 
-router.put('/:id', productosPut);
+router.put('/:id', productsPut);
 
-router.delete('/:id', productosDelete);
+router.delete('/:id', productsDelete);
 
 module.exports = router;

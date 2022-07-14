@@ -1,7 +1,7 @@
 const {Schema, model} = require("mongoose");
 const mongoosePaginate = require('mongoose-paginate-v2');
 
-const usuarioSchema = new Schema({
+const userSchema = new Schema({
         name: {type: String, required: true},
         email: {type: String, required: true, unique: true},
         password: {type: String, required: true},
@@ -13,11 +13,11 @@ const usuarioSchema = new Schema({
         timestamps: true
     });
 
-usuarioSchema.plugin(mongoosePaginate);
+userSchema.plugin(mongoosePaginate);
 
-usuarioSchema.methods.toJSON = function () {
-    const {__v, password, ...usuario} = this.toObject();
-    return usuario
+userSchema.methods.toJSON = function () {
+    const {__v, password, ...user} = this.toObject();
+    return user
 }
 
-module.exports = model('Usuario', usuarioSchema);
+module.exports = model('User', userSchema);

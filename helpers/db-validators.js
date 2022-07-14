@@ -1,22 +1,22 @@
-const usuario = require('../models/usuario');
+const user = require('../models/user');
 
-const existeCorreo = async (email = '') => {
-    const existe = await usuario.findOne({email});
-    if (existe) {
+const mailExist = async (email = '') => {
+    const exist = await user.findOne({email});
+    if (exist) {
         throw new Error(`email ${email} exist!`)
     }
 }
 
-const existeCategoriaPorId = async (id) => {
-    const existeCategoria = await Categoria.findById(id);
-    if (!existeCategoria) {
+const existCategory = async (id) => {
+    const exist = await Categoria.findById(id);
+    if (!exist) {
         throw new Error(`id don't exist!  ${id}`);
     }
 }
 
-const existeUsuarioPorId = async (id) => {
-    const existeUsuario = await usuario.findById(id);
-    if (!existeUsuario) {
+const existUser = async (id) => {
+    const exist = await user.findById(id);
+    if (!exist) {
         throw new Error(`id don't exist!  ${id}`);
     }
 }
@@ -32,8 +32,8 @@ const collectionsAllows = (collection = '', collections = []) => {
 }
 
 module.exports = {
-    existeCorreo,
-    existeUsuarioPorId,
-    existeCategoriaPorId,
+    mailExist,
+    existUser,
+    existCategory,
     collectionsAllows,
 }

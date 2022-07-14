@@ -1,7 +1,7 @@
 const {response} = require("express");
 const {upFile} = require("../helpers/up-file");
-const Producto = require('../models/producto');
-const Usuario = require('../models/usuario');
+const Product = require('../models/product');
+const User = require('../models/user');
 const path = require("path");
 const fs = require("fs");
 const cloudinary = require('cloudinary').v2
@@ -21,7 +21,7 @@ const updateImageCloudinary = async (req, res = response) => {
     let model;
     switch (collection) {
         case 'usuarios':
-            model = await Usuario.findById(id);
+            model = await User.findById(id);
             if (!model) {
                 return res.status(400).json({
                     msg: `User with id ${id} not found!`
@@ -29,7 +29,7 @@ const updateImageCloudinary = async (req, res = response) => {
             }
             break;
         case 'productos':
-            model = await Producto.findById(id);
+            model = await Product.findById(id);
             if (!model) {
                 return res.status(400).json({
                     msg: `Product with id ${id} not found!`
@@ -46,7 +46,7 @@ const updateImageCloudinary = async (req, res = response) => {
         const [public_id] = name.split('.');
         await cloudinary.uploader.destroy(public_id);
     }
-    const {tempFilePath} = req.files.file
+    const {tempFilePath} = req.files.file;
     const {secure_url} = await cloudinary.uploader.upload(tempFilePath);
     model.path = secure_url;
     await model.save();
@@ -58,7 +58,7 @@ const showImage = async (req, res = response) => {
     let model;
     switch (collection) {
         case 'usuarios':
-            model = await Usuario.findById(id);
+            model = await User.findById(id);
             if (!model) {
                 return res.status(400).json({
                     msg: `No existe un usuario con el id ${id}`
@@ -66,7 +66,7 @@ const showImage = async (req, res = response) => {
             }
             break;
         case 'productos':
-            model = await Producto.findById(id);
+            model = await Product.findById(id);
             if (!model) {
                 return res.status(400).json({
                     msg: `No existe un producto con el id ${id}`

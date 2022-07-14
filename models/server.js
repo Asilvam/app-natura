@@ -12,7 +12,6 @@ class Server {
         this.productosPath = '/api/products';
         this.uploadPath = '/api/uploads';
         this.authPath = '/api/auth';
-
         this.connectDB();
         this.middlewares();
         this.routes();
@@ -39,8 +38,8 @@ class Server {
 
     routes() {
         this.app.use(this.authPath, require('../routes/auth'));
-        this.app.use(this.usuariosPath, require('../routes/usuarios'));
-        this.app.use(this.productosPath, require('../routes/productos'));
+        this.app.use(this.usuariosPath, require('../routes/users'));
+        this.app.use(this.productosPath, require('../routes/products'));
         this.app.use(this.uploadPath, require('../routes/uploads'));
     }
 

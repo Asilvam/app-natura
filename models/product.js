@@ -1,13 +1,13 @@
 const {Schema, model} = require("mongoose");
-const mongoosePaginate= require('mongoose-paginate-v2');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
-const productoSchema = new Schema({
+const productSchema = new Schema({
         title: {type: String},
         price: {type: Number},
         inStock: {type: Number},
         code: {type: String},
-        cycle: {type: []},
-        expiration: {type: []},
+        cycle: {type: [String]},
+        expiration: {type: [String]},
         description: {type: String},
         path: {type: String},
         isActive: {type: Boolean, default: true},
@@ -17,6 +17,6 @@ const productoSchema = new Schema({
         timestamps: true
     });
 
-productoSchema.plugin(mongoosePaginate);
+productSchema.plugin(mongoosePaginate);
 
-module.exports = model("Producto", productoSchema);
+module.exports = model("Product", productSchema);
