@@ -11,7 +11,7 @@ const productsGet = async (req = request, res = response) => {
 
 const productsPost = async (req = request, res = response) => {
     const body = req.body;
-    console.log(body);
+    // console.log(body);
     const {tempFilePath} = req.files.file;
     const {secure_url} = await cloudinary.uploader.upload(tempFilePath);
     const product = new Product(body);

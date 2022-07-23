@@ -1,6 +1,6 @@
 const user = require('../models/user');
 
-const mailExist = async (email = '') => {
+const existMail = async (email = '') => {
     const exist = await user.findOne({email});
     if (exist) {
         throw new Error(`email ${email} exist!`)
@@ -32,7 +32,7 @@ const collectionsAllows = (collection = '', collections = []) => {
 }
 
 module.exports = {
-    mailExist,
+    existMail,
     existUser,
     existCategory,
     collectionsAllows,
