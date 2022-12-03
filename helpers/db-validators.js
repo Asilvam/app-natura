@@ -1,5 +1,6 @@
-import user from '../models/user'
-import category from '../models/category';
+const user = require('../models/user');
+const category = require('../models/category');
+
 
 const existMail = async (email = '') => {
     const exist = await user.findOne({email});

@@ -1,5 +1,5 @@
-import {Schema, model} from 'mongoose';
-import mongoosePaginate from 'mongoose-paginate-v2';
+const {Schema, model} = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const userSchema = new Schema({
         name: {type: String, required: true},
