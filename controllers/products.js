@@ -5,7 +5,7 @@ const {v2: cloudinary} = require("cloudinary");
 const productsGet = async (req = request, res = response) => {
     const limit = req.query.limit || 10;
     const page = req.query.page || 1;
-    const products = await Product.paginate({isActive: true}, {limit, page})
+    const products = await Product.paginate({isActive: true}, {limit, page});
     res.json(products);
 }
 

@@ -1,4 +1,5 @@
-const user = require('../models/user');
+import user from '../models/user'
+import category from '../models/category';
 
 const existMail = async (email = '') => {
     const exist = await user.findOne({email});
@@ -8,7 +9,7 @@ const existMail = async (email = '') => {
 }
 
 const existCategory = async (id) => {
-    const exist = await Categoria.findById(id);
+    const exist = await category.findById(id);
     if (!exist) {
         throw new Error(`id don't exist!  ${id}`);
     }
@@ -20,9 +21,7 @@ const existUser = async (id) => {
         throw new Error(`id don't exist!  ${id}`);
     }
 }
-/**
- * Validar colecciones permitidas
- */
+
 const collectionsAllows = (collection = '', collections = []) => {
     const include = collections.includes(collection);
     if (!include) {

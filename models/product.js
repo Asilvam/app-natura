@@ -11,7 +11,8 @@ const productSchema = new Schema({
         description: {type: String},
         path: {type: String},
         isActive: {type: Boolean, default: true},
-        category: {type: String}
+        category: {type: String},
+        isOnSale:{type: Boolean, default: false},
     },
     {
         timestamps: true
