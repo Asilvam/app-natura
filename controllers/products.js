@@ -4,8 +4,7 @@ const {v2: cloudinary} = require("cloudinary");
 
 const {createLogger, format, transports} = require("winston");
 const logger = createLogger({
-    format: format.combine(format.timestamp(), format.json()),
-    transports: [new transports.Console({})],
+    format: format.combine(format.timestamp(), format.json()), transports: [new transports.Console({})],
 });
 
 const productsGet = async (req = request, res = response) => {
@@ -15,10 +14,7 @@ const productsGet = async (req = request, res = response) => {
     if (products) {
         logger.info(`Get API - Products`);
         res.status(200);
-        res.json({
-            msg: 'Get API - Products',
-            products
-        });
+        res.json(products);
     }
 }
 
@@ -33,10 +29,7 @@ const productsPost = async (req = request, res = response) => {
     if (result) {
         logger.info(`Post API - Products`);
         res.status(201);
-        res.json({
-            msg: 'Post API - Products',
-            result
-        });
+        res.json(result);
     }
 }
 
@@ -53,8 +46,5 @@ const productsDelete = async (req = request, res = response) => {
 }
 
 module.exports = {
-    productsGet,
-    productsPost,
-    productsPut,
-    productsDelete,
+    productsGet, productsPost, productsPut, productsDelete,
 }
