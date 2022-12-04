@@ -2,11 +2,24 @@ const {response, request} = require('express');
 const Product = require('../models/product');
 const {v2: cloudinary} = require("cloudinary");
 
+const {createLogger, format, transports} = require("winston");
+const logger = createLogger({
+    format: format.combine(format.timestamp(), format.json()),
+    transports: [new transports.Console({})],
+});
+
 const productsGet = async (req = request, res = response) => {
     const limit = req.query.limit || 10;
     const page = req.query.page || 1;
     const products = await Product.paginate({isActive: true}, {limit, page});
-    res.json(products);
+    if (products) {
+        logger.info(`Get API - Products`);
+        res.status(200);
+        res.json({
+            msg: 'Get API - Products',
+            products
+        });
+    }
 }
 
 const productsPost = async (req = request, res = response) => {
@@ -18,9 +31,10 @@ const productsPost = async (req = request, res = response) => {
     product.path = secure_url;
     const result = await product.save();
     if (result) {
+        logger.info(`Post API - Products`);
         res.status(201);
         res.json({
-            msg: 'Post API - Product',
+            msg: 'Post API - Products',
             result
         });
     }

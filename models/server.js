@@ -2,6 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const {dbConnection} = require("../database/config");
 const fileUpload = require('express-fileupload');
+const {createLogger, format, transports} = require("winston");
+
+const logger = createLogger({
+    format: format.combine(format.timestamp(), format.json()),
+    transports: [new transports.Console({})],
+});
+
 class Server {
 
     constructor() {
@@ -15,6 +22,7 @@ class Server {
         this.middlewares();
         this.routes();
     }
+
 
     async connectDB() {
         await dbConnection();
@@ -44,7 +52,7 @@ class Server {
 
     listen() {
         this.app.listen(this.port, () => {
-            console.log('Server run in port ', this.port);
+            logger.info(`Server run in port ${this.port}`);
         });
     }
 }

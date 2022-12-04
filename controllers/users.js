@@ -1,12 +1,18 @@
 const {response, request} = require('express');
 const bcrypt = require('bcryptjs');
-
 const User = require('../models/user');
+
+const {createLogger, format, transports} = require("winston");
+const logger = createLogger({
+    format: format.combine(format.timestamp(), format.json()),
+    transports: [new transports.Console({})],
+});
 
 const usersGet = async (req = request, res = response) => {
     const limit = req.query.limit || 10;
     const page = req.query.page || 1;
     const users = await User.paginate({limit, page});
+    logger.info(users);
     res.json(
         users
     );
